@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Psychiatric Emergencies and Severe Hyperglycemic Crises</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 62.5%; height:100%; max-width:100vw; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size:1.8rem; line-height:1.8; color:#111; overflow:hidden; position:relative; }
+.background-dots { position:fixed; top:0; right:0; width:60%; opacity:0.15; pointer-events:none; z-index:0; }
+.rise-shell { height:100%; display:flex; flex-direction:column; position:relative; z-index:1; }
+.rise-shell__header { padding:1.8rem 3rem; background:#fff; border-bottom:1px solid #ececec; display:flex; align-items:center; justify-content:space-between; gap:2rem; }
+.rise-shell__title { font-size:2.2rem; font-weight:700; line-height:1.2; }
+.rise-shell__body { flex:1; overflow-y:auto; padding:5rem 0; }
+.rise-page { width:100%; max-width:104rem; margin:0 auto; padding:0 3.2rem; }
+:root { --space-sm:2.2rem; --space-lg:5rem; --space-xl:7rem; --blue:#007CFF; --green:#0b6b3a; --line:#dde4ee; }
+.rise-block { margin-block:var(--space-xl); padding:var(--space-lg); background:#fff; border-radius:.8rem; }
+.rise-block.alt { background:#f7f9fb; box-shadow:0 .4rem 1.6rem rgba(0,0,0,.04); }
+.rise-block.tint { background:#f4f9ff; box-shadow:0 .4rem 1.6rem rgba(0,0,0,.04); }
+.rise-block h1 { font-size:4rem; line-height:1.12; margin:0 0 var(--space-sm); }
+.rise-block h2 { font-size:2.8rem; margin:0 0 var(--space-sm); line-height:1.25; }
+.rise-block h3 { font-size:2rem; margin:0 0 1rem; line-height:1.35; }
+.rise-block h4 { font-size:1.8rem; margin:0 0 .6rem; line-height:1.35; }
+.rise-block p { margin:0 0 var(--space-sm); }
+.rise-block ul { margin:0 0 var(--space-sm); padding-left:2.4rem; }
+.rise-block li { margin:.6rem 0; }
+.cover-screen { position:fixed; inset:0; background:#fff; z-index:5000; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; transition:opacity .35s ease, visibility .35s ease; }
+.cover-screen.hidden { opacity:0; visibility:hidden; }
+.cover-title { font-size:3.6rem; line-height:1.15; font-weight:750; margin-bottom:3rem; max-width:78rem; }
+.cover-btn { padding:1.2rem 2.4rem; font-size:1.8rem; border-radius:.6rem; border:0; background:var(--blue); color:#fff; cursor:pointer; font-weight:700; transition:background .2s ease; }
+.cover-btn:hover { background:#0066d1; }
+.hero { border-top:.8rem solid var(--blue); background:linear-gradient(180deg,#fff,#f7fbff); }
+.callout { border-left:.6rem solid var(--blue); padding:1.8rem 2.2rem; background:#f4f9ff; border-radius:.4rem; margin:var(--space-sm) 0; font-weight:650; }
+.circle-list { padding-left:0 !important; list-style:none; margin-top:2rem; display:grid; gap:1.2rem; }
+.circle-list li { display:flex; align-items:center; margin:0; }
+.circle-num { width:3.2rem; height:3.2rem; border-radius:50%; background:var(--blue); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; margin-right:1rem; flex:0 0 auto; }
+.split { display:grid; grid-template-columns:minmax(0,1fr) minmax(28rem,.8fr); gap:3rem; align-items:start; }
+.panel { border:1px solid var(--line); border-radius:.8rem; padding:2.2rem; background:#fff; }
+.panel.green { border-left:.5rem solid var(--green); }
+.grid-2, .grid-3, .grid-4 { display:grid; gap:1.8rem; margin-top:2rem; }
+.grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.grid-4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.mini-card { border:1px solid var(--line); border-radius:.8rem; padding:2rem; background:#fff; min-height:100%; }
+.mini-card h3, .mini-card h4 { color:#0d3155; }
+.accordion { border:1px solid #d9e1ea; border-radius:.8rem; overflow:hidden; background:#fff; }
+.accordion-item + .accordion-item { border-top:1px solid #d9e1ea; }
+.accordion-header { background:#f7f9fb; padding:1.6rem 1.8rem; cursor:pointer; font-size:1.8rem; font-weight:700; }
+.accordion-content { display:none; padding:1.8rem; background:#fff; }
+.accordion-item.open .accordion-content { display:block; }
+.rise-tabs { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.6rem; }
+.tab-btn { padding:.9rem 1.5rem; border-radius:.7rem; border:1px solid #cbd7e5; background:#fff; cursor:pointer; font-size:1.6rem; font-weight:650; }
+.tab-btn.active { background:#eaf4ff; border-color:#7dbaff; color:#07315b; }
+.tab-content { display:none; margin-top:1.8rem; }
+.tab-content.active { display:block; }
+.choice-block { display:grid; grid-template-columns:28rem 1fr; gap:2rem; align-items:start; }
+.choice-menu { display:grid; gap:1rem; }
+.choice-btn { border:1px solid #cbd7e5; background:#fff; text-align:left; padding:1.4rem 1.6rem; border-radius:.7rem; font-size:1.65rem; font-weight:700; cursor:pointer; }
+.choice-btn.active { border-color:var(--blue); background:#eaf4ff; }
+.choice-panel { display:none; }
+.choice-panel.active { display:block; }
+.comparison { display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; margin-top:2rem; }
+.comparison .panel:first-child { border-top:.5rem solid #7a8a9a; }
+.comparison .panel:last-child { border-top:.5rem solid var(--green); }
+.table-wrap { overflow-x:auto; margin-top:2rem; border:1px solid var(--line); border-radius:.8rem; background:#fff; }
+.comparison-table { width:100%; border-collapse:collapse; min-width:68rem; }
+.comparison-table th, .comparison-table td { padding:1.4rem 1.6rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+.comparison-table th { background:#eef6ff; color:#10243a; font-weight:800; }
+.comparison-table tr:last-child td { border-bottom:0; }
+@media (max-width:850px) {
+  .rise-shell__header { align-items:flex-start; flex-direction:column; }
+  .split, .grid-2, .grid-3, .grid-4, .choice-block, .comparison { grid-template-columns:1fr; }
+  .rise-block { padding:3rem 2rem; margin-block:4rem; }
+  .rise-page { padding:0 1.8rem; }
+}
+</style>
+</head>
+<body>
+<svg class="background-dots" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="dots1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="3" fill="#007CFF"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#dots1)" />
+</svg>
+
+<div class="cover-screen" id="cover">
+  <div class="cover-title">Psychiatric Emergencies and Severe Hyperglycemic Crises</div>
+  <button class="cover-btn" id="coverBegin">Begin</button>
+</div>
+
+<div class="rise-shell">
+<header class="rise-shell__header">
+  <div class="rise-shell__title">Psychiatric Emergencies and Severe Hyperglycemic Crises</div>
+</header>
+<main class="rise-shell__body">
+<div class="rise-page">
+
+<section class="rise-block hero">
+  <h1>Psychiatric Emergencies and Severe Hyperglycemic Crises</h1>
+  <h2>Lecture Overview</h2>
+  <p>This lecture focuses on the emergency evaluation, stabilization, and disposition of severe psychiatric and hyperglycemic emergencies encountered in emergency medicine. Students will examine hyperosmolar hyperglycemic state (HHS), ketoacidotic syndromes, acute agitation, psychosis, mood disorders, geriatric psychiatric emergencies, emergency sedation, capacity assessment, and psychiatric disposition planning.</p>
+  <p>Emphasis is placed on recognition of dangerous presentations, patient and staff safety, identification of medical causes of behavioral changes, de-escalation strategies, emergency sedation, and continuous reassessment during high-acuity psychiatric and metabolic emergencies.</p>
+  <div class="callout">As the final week of Emergency Medicine I, this lecture integrates many of the concepts discussed throughout the course, including shock recognition, airway management, metabolic emergencies, altered mental status, toxicologic evaluation, and disposition decision-making.</div>
+</section>
+
+<section class="rise-block alt">
+  <h2>Hyperosmolar Hyperglycemic State (HHS)</h2>
+  <h3>Key Concepts</h3>
+  <p>HHS is a life-threatening hyperglycemic emergency characterized by:</p>
+  <ul>
+    <li>Severe hyperglycemia</li>
+    <li>Hyperosmolarity</li>
+    <li>Profound dehydration</li>
+    <li>Minimal or absent ketosis</li>
+  </ul>
+  <p>Patients frequently present later in the disease process than those with DKA and often demonstrate significant neurologic dysfunction.</p>
+  <div class="rise-tabs">
+    <button class="tab-btn active" type="button" data-group="hhs" data-target="hhs-pathophysiology">Pathophysiology</button>
+    <button class="tab-btn" type="button" data-group="hhs" data-target="hhs-findings">Common Clinical Findings</button>
+    <button class="tab-btn" type="button" data-group="hhs" data-target="hhs-priorities">Stabilization Priorities</button>
+  </div>
+  <div class="tab-content active" data-group="hhs" id="hhs-pathophysiology">
+    <div class="panel">
+      <p>Progressive hyperglycemia results in:</p>
+      <ul>
+        <li>Osmotic diuresis</li>
+        <li>Severe dehydration</li>
+        <li>Electrolyte losses</li>
+        <li>Reduced cerebral perfusion</li>
+        <li>Altered mental status</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="hhs" id="hhs-findings">
+    <div class="panel">
+      <ul>
+        <li>Severe hyperglycemia</li>
+        <li>Dehydration</li>
+        <li>Weakness</li>
+        <li>Confusion</li>
+        <li>Altered mental status</li>
+        <li>Neurologic deficits</li>
+        <li>Tachycardia</li>
+        <li>Hypotension</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="hhs" id="hhs-priorities">
+    <div class="panel">
+      <ul>
+        <li>Aggressive fluid resuscitation</li>
+        <li>Electrolyte monitoring</li>
+        <li>Glucose monitoring</li>
+        <li>Insulin therapy</li>
+        <li>Hemodynamic support</li>
+        <li>Neurologic reassessment</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="rise-block">
+  <h2>Key Differences from DKA</h2>
+  <div class="table-wrap">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Finding</th>
+          <th>DKA</th>
+          <th>HHS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Typical Patient</td>
+          <td>Type 1 Diabetes</td>
+          <td>Type 2 Diabetes</td>
+        </tr>
+        <tr>
+          <td>Ketosis</td>
+          <td>Present</td>
+          <td>Minimal</td>
+        </tr>
+        <tr>
+          <td>Acidosis</td>
+          <td>Significant</td>
+          <td>Mild or Absent</td>
+        </tr>
+        <tr>
+          <td>Glucose</td>
+          <td>Elevated</td>
+          <td>Often &gt;600 mg/dL</td>
+        </tr>
+        <tr>
+          <td>Mental Status Changes</td>
+          <td>Variable</td>
+          <td>Common</td>
+        </tr>
+        <tr>
+          <td>Dehydration</td>
+          <td>Moderate-Severe</td>
+          <td>Severe</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Neurologic dysfunction in HHS often reflects severe dehydration and hyperosmolarity.</p>
+  </div>
+</section>
+
+<section class="rise-block tint">
+  <h2>Ketoacidotic Syndromes</h2>
+  <h3>Key Concepts</h3>
+  <p>Ketoacidotic syndromes occur when insufficient insulin availability results in ketone production and metabolic acidosis.</p>
+  <p>Although DKA remains the most common ketoacidotic emergency, clinicians should recognize that multiple causes of ketosis and acidosis may exist.</p>
+  <div class="choice-block">
+    <div class="choice-menu">
+      <button class="choice-btn active" type="button" data-choice-group="keto" data-choice-target="keto-findings">Clinical Findings</button>
+      <button class="choice-btn" type="button" data-choice-group="keto" data-choice-target="keto-concerning">Concerning Features</button>
+      <button class="choice-btn" type="button" data-choice-group="keto" data-choice-target="keto-priorities">Emergency Priorities</button>
+    </div>
+    <div>
+      <div class="choice-panel active panel" id="keto-findings" data-choice-group="keto">
+        <ul>
+          <li>Tachypnea</li>
+          <li>Dehydration</li>
+          <li>Nausea and vomiting</li>
+          <li>Abdominal pain</li>
+          <li>Altered mental status</li>
+          <li>Metabolic acidosis</li>
+          <li>Electrolyte abnormalities</li>
+        </ul>
+      </div>
+      <div class="choice-panel panel" id="keto-concerning" data-choice-group="keto">
+        <ul>
+          <li>Severe acidemia</li>
+          <li>Respiratory fatigue</li>
+          <li>Progressive mental status decline</li>
+          <li>Dysrhythmias</li>
+          <li>Shock</li>
+        </ul>
+      </div>
+      <div class="choice-panel panel" id="keto-priorities" data-choice-group="keto">
+        <ul>
+          <li>Fluid resuscitation</li>
+          <li>Electrolyte monitoring</li>
+          <li>Cardiac monitoring</li>
+          <li>Acid-base assessment</li>
+          <li>Continuous reassessment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Metabolic stabilization requires continuous reassessment because electrolyte abnormalities frequently evolve during treatment.</p>
+  </div>
+</section>
+
+<section class="rise-block alt">
+  <h2>Altered Mental Status in Emergency Medicine</h2>
+  <h3>Key Concepts</h3>
+  <p>Altered mental status is one of the most common and highest-risk presentations encountered in emergency medicine.</p>
+  <div class="split">
+    <div class="panel">
+      <p>Behavioral changes may represent:</p>
+      <ul>
+        <li>Metabolic disease</li>
+        <li>Toxicologic emergencies</li>
+        <li>Infection</li>
+        <li>Psychiatric illness</li>
+        <li>Neurologic disease</li>
+        <li>Medication effects</li>
+      </ul>
+    </div>
+    <div class="panel green">
+      <h3>Clinical Pearl</h3>
+      <p>The most dangerous mistake in psychiatric emergencies is assuming the patient has a psychiatric illness before excluding a medical cause.</p>
+    </div>
+  </div>
+  <div class="comparison">
+    <div class="panel">
+      <h3>Immediate Priorities</h3>
+      <ul>
+        <li>Airway assessment</li>
+        <li>Glucose assessment</li>
+        <li>Oxygenation and ventilation evaluation</li>
+        <li>Hemodynamic assessment</li>
+        <li>Neurologic examination</li>
+        <li>Safety assessment</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Life-Threatening Causes</h3>
+      <ul>
+        <li>Hypoglycemia</li>
+        <li>HHS</li>
+        <li>DKA</li>
+        <li>Sepsis</li>
+        <li>Hypoxia</li>
+        <li>Intracranial hemorrhage</li>
+        <li>Toxicologic emergencies</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="rise-block">
+  <h2>Psychiatric Evaluation in the Emergency Department</h2>
+  <h3>Key Concepts</h3>
+  <p>Psychiatric emergencies require simultaneous evaluation of both psychiatric and medical causes of presentation.</p>
+  <p>Not all agitation, confusion, hallucinations, or psychosis is psychiatric in origin.</p>
+  <div class="comparison">
+    <div class="panel">
+      <h3>Initial Priorities</h3>
+      <ul>
+        <li>Medical screening examination</li>
+        <li>Airway assessment</li>
+        <li>Suicide risk assessment</li>
+        <li>Homicide risk assessment</li>
+        <li>Identification of medical instability</li>
+        <li>Evaluation for intoxication or withdrawal</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Important Medical Mimics</h3>
+      <ul>
+        <li>Hypoglycemia</li>
+        <li>Hyperglycemia</li>
+        <li>Sepsis</li>
+        <li>Hypoxia</li>
+        <li>Electrolyte abnormalities</li>
+        <li>Medication toxicity</li>
+        <li>Intracranial pathology</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Psychiatric symptoms accompanied by abnormal vital signs should be considered medical until proven otherwise.</p>
+  </div>
+</section>
+
+<section class="rise-block tint">
+  <h2>Acute Agitation</h2>
+  <h3>Key Concepts</h3>
+  <p>Agitation is a behavioral emergency that may place patients, staff, and others at immediate risk.</p>
+  <p>Rapid identification of the underlying cause is essential.</p>
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">Common Causes</div>
+      <div class="accordion-content">
+        <ul>
+          <li>Psychosis</li>
+          <li>Substance intoxication</li>
+          <li>Withdrawal syndromes</li>
+          <li>Delirium</li>
+          <li>Metabolic emergencies</li>
+          <li>Psychiatric illness</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">Initial Priorities</div>
+      <div class="accordion-content">
+        <ul>
+          <li>Scene safety</li>
+          <li>Verbal de-escalation</li>
+          <li>Medical evaluation</li>
+          <li>Identification of instability</li>
+          <li>Continuous reassessment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">De-Escalation Principles</div>
+      <div class="accordion-content">
+        <ul>
+          <li>Calm communication</li>
+          <li>Respectful interaction</li>
+          <li>Limit environmental stimulation</li>
+          <li>Team coordination</li>
+          <li>Maintain safe distance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Verbal de-escalation should be attempted whenever safe and feasible before pharmacologic intervention.</p>
+  </div>
+</section>
+
+<section class="rise-block alt">
+  <h2>Emergency Sedation</h2>
+  <h3>Key Concepts</h3>
+  <p>Some patients require pharmacologic sedation to permit evaluation and treatment while maintaining safety.</p>
+  <div class="rise-tabs">
+    <button class="tab-btn active" type="button" data-group="sedation" data-target="sedation-benzo">Benzodiazepines</button>
+    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-antipsychotics">Antipsychotics</button>
+    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-ketamine">Ketamine</button>
+    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-risks">Sedation Risks</button>
+  </div>
+  <div class="tab-content active" data-group="sedation" id="sedation-benzo">
+    <div class="panel">
+      <p>Useful for:</p>
+      <ul>
+        <li>Anxiety</li>
+        <li>Withdrawal</li>
+        <li>Sympathomimetic intoxication</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="sedation" id="sedation-antipsychotics">
+    <div class="panel">
+      <p>Useful for:</p>
+      <ul>
+        <li>Psychosis</li>
+        <li>Behavioral agitation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="sedation" id="sedation-ketamine">
+    <div class="panel">
+      <p>May be appropriate for severe agitation when immediate control is necessary.</p>
+    </div>
+  </div>
+  <div class="tab-content" data-group="sedation" id="sedation-risks">
+    <div class="panel">
+      <ul>
+        <li>Respiratory depression</li>
+        <li>Airway compromise</li>
+        <li>Hypoxia</li>
+        <li>Dysrhythmias</li>
+        <li>Hypotension</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Sedated psychiatric patients require the same physiologic monitoring as any other critically ill emergency medicine patient.</p>
+  </div>
+</section>
+
+<section class="rise-block">
+  <h2>Suicide Risk Assessment</h2>
+  <h3>Key Concepts</h3>
+  <p>Suicidal ideation is a common emergency department presentation requiring careful assessment and disposition planning.</p>
+  <div class="comparison">
+    <div class="panel">
+      <h3>Assessment Components</h3>
+      <p>Evaluate:</p>
+      <ul>
+        <li>Suicidal ideation</li>
+        <li>Intent</li>
+        <li>Plan</li>
+        <li>Access to means</li>
+        <li>Previous attempts</li>
+        <li>Protective factors</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>High-Risk Features</h3>
+      <ul>
+        <li>Active suicide plan</li>
+        <li>Previous attempts</li>
+        <li>Psychosis</li>
+        <li>Substance abuse</li>
+        <li>Lack of social support</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Risk assessment should focus on both immediate safety and future risk.</p>
+  </div>
+</section>
+
+<section class="rise-block tint">
+  <h2>Psychosis</h2>
+  <h3>Key Concepts</h3>
+  <p>Psychosis may result from psychiatric illness, substance use, neurologic disease, or medical instability.</p>
+  <div class="comparison">
+    <div class="panel">
+      <h3>Common Findings</h3>
+      <ul>
+        <li>Hallucinations</li>
+        <li>Delusions</li>
+        <li>Paranoia</li>
+        <li>Disorganized behavior</li>
+        <li>Agitation</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Emergency Priorities</h3>
+      <ul>
+        <li>Ensure safety</li>
+        <li>Exclude medical causes</li>
+        <li>Evaluate for intoxication</li>
+        <li>Assess decision-making capacity</li>
+        <li>Determine disposition</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>New-onset psychosis in older adults should be considered medical until proven otherwise.</p>
+  </div>
+</section>
+
+<section class="rise-block alt">
+  <h2>Psychiatric Emergencies in Older Adults</h2>
+  <h3>Key Concepts</h3>
+  <p>Psychiatric complaints in elderly patients frequently have underlying medical contributors.</p>
+  <div class="choice-block">
+    <div class="choice-menu">
+      <button class="choice-btn active" type="button" data-choice-group="older-adults" data-choice-target="older-presentations">Common Presentations</button>
+      <button class="choice-btn" type="button" data-choice-group="older-adults" data-choice-target="older-considerations">Special Considerations</button>
+    </div>
+    <div>
+      <div class="choice-panel active panel" id="older-presentations" data-choice-group="older-adults">
+        <ul>
+          <li>Delirium</li>
+          <li>Dementia-related agitation</li>
+          <li>Depression</li>
+          <li>Medication toxicity</li>
+          <li>Psychosis</li>
+        </ul>
+      </div>
+      <div class="choice-panel panel" id="older-considerations" data-choice-group="older-adults">
+        <p>Older adults are at increased risk for:</p>
+        <ul>
+          <li>Polypharmacy</li>
+          <li>Drug interactions</li>
+          <li>Delirium</li>
+          <li>Atypical presentations</li>
+          <li>Medical mimics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Delirium should be considered a medical emergency until proven otherwise.</p>
+  </div>
+</section>
+
+<section class="rise-block">
+  <h2>Capacity and Refusal of Care</h2>
+  <h3>Key Concepts</h3>
+  <p>Patients may refuse treatment only if they possess decision-making capacity.</p>
+  <h3>Capacity Assessment</h3>
+  <p>The patient must demonstrate the ability to:</p>
+  <ul class="circle-list">
+    <li><div class="circle-num">1</div><span>Understand information</span></li>
+    <li><div class="circle-num">2</div><span>Appreciate consequences</span></li>
+    <li><div class="circle-num">3</div><span>Reason through options</span></li>
+    <li><div class="circle-num">4</div><span>Communicate a choice</span></li>
+  </ul>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Capacity is decision-specific and may fluctuate over time.</p>
+  </div>
+</section>
+
+<section class="rise-block tint">
+  <h2>Psychiatric Disposition Decisions</h2>
+  <h3>Key Concepts</h3>
+  <p>Disposition is one of the most important decisions made in emergency medicine.</p>
+  <p>Clinicians must determine:</p>
+  <ul>
+    <li>Who can safely be discharged</li>
+    <li>Who requires admission</li>
+    <li>Who requires involuntary treatment</li>
+    <li>Who has ongoing medical instability</li>
+  </ul>
+  <div class="comparison">
+    <div class="panel">
+      <h3>Psychiatric Admission Considerations</h3>
+      <ul>
+        <li>Active suicidal ideation</li>
+        <li>Danger to others</li>
+        <li>Grave disability</li>
+        <li>Severe psychosis</li>
+        <li>Inability to care for self</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Medical Admission Considerations</h3>
+      <ul>
+        <li>HHS</li>
+        <li>DKA</li>
+        <li>Delirium</li>
+        <li>Persistent abnormal vital signs</li>
+        <li>Toxicologic instability</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Clinical Pearl</h3>
+    <p>Safe psychiatric disposition requires both psychiatric and medical stability.</p>
+  </div>
+</section>
+
+<section class="rise-block alt">
+  <h2>Clinical Reassessment</h2>
+  <div class="rise-tabs">
+    <button class="tab-btn active" type="button" data-group="reassessment" data-target="reassess-hyperglycemic">Hyperglycemic Emergencies</button>
+    <button class="tab-btn" type="button" data-group="reassessment" data-target="reassess-agitated">Agitated Patients</button>
+    <button class="tab-btn" type="button" data-group="reassessment" data-target="reassess-psychiatric">Psychiatric Patients</button>
+  </div>
+  <div class="tab-content active" data-group="reassessment" id="reassess-hyperglycemic">
+    <div class="panel">
+      <p>Monitor:</p>
+      <ul>
+        <li>Mental status</li>
+        <li>Glucose</li>
+        <li>Electrolytes</li>
+        <li>Fluid status</li>
+        <li>Neurologic findings</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="reassessment" id="reassess-agitated">
+    <div class="panel">
+      <p>Monitor:</p>
+      <ul>
+        <li>Airway</li>
+        <li>Respiratory status</li>
+        <li>Sedation depth</li>
+        <li>Temperature</li>
+        <li>Hemodynamics</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content" data-group="reassessment" id="reassess-psychiatric">
+    <div class="panel">
+      <p>Monitor:</p>
+      <ul>
+        <li>Safety risk</li>
+        <li>Suicidal ideation</li>
+        <li>Capacity</li>
+        <li>Response to treatment</li>
+        <li>Disposition readiness</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h3>Key Principle</h3>
+    <p>Patients with psychiatric and metabolic emergencies frequently deteriorate despite appearing stable during the initial evaluation.</p>
+  </div>
+</section>
+
+<section class="rise-block tint">
+  <h2>Key Takeaways</h2>
+  <p>Students should understand:</p>
+  <ul class="circle-list">
+    <li><div class="circle-num">1</div><span>Hyperosmolar Hyperglycemic State (HHS)</span></li>
+    <li><div class="circle-num">2</div><span>Ketoacidotic syndromes</span></li>
+    <li><div class="circle-num">3</div><span>Altered mental status evaluation</span></li>
+    <li><div class="circle-num">4</div><span>Medical screening of psychiatric patients</span></li>
+    <li><div class="circle-num">5</div><span>Acute agitation and behavioral emergencies</span></li>
+    <li><div class="circle-num">6</div><span>Emergency sedation strategies</span></li>
+    <li><div class="circle-num">7</div><span>Suicide risk assessment</span></li>
+    <li><div class="circle-num">8</div><span>Psychosis and behavioral crises</span></li>
+    <li><div class="circle-num">9</div><span>Geriatric psychiatric emergencies</span></li>
+    <li><div class="circle-num">10</div><span>Capacity assessment</span></li>
+    <li><div class="circle-num">11</div><span>Psychiatric disposition decisions</span></li>
+    <li><div class="circle-num">12</div><span>Continuous reassessment during psychiatric and metabolic emergencies</span></li>
+  </ul>
+</section>
+
+<section class="rise-block">
+  <h2>Related Readings</h2>
+  <div class="grid-3">
+    <div class="mini-card"><p>Tintinalli Ch. 226 — Ketoacidotic Syndromes</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 227 — Hyperosmolar Hyperglycemic State</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 286 — Mental Health Disorders: ED Evaluation and Disposition</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 287 — Acute Agitation</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 288 — Mental Health Disorders of the Elderly</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 289 — Mood and Anxiety Disorders</p></div>
+    <div class="mini-card"><p>Tintinalli Ch. 290 — Psychoses</p></div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+
+<script>
+document.getElementById('coverBegin').addEventListener('click', () => {
+  document.getElementById('cover').classList.add('hidden');
+});
+
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('open');
+  });
+});
+
+function changeTab(event) {
+  const btn = event.currentTarget;
+  const group = btn.dataset.group;
+  const targetId = btn.dataset.target;
+  const block = btn.closest('.rise-block') || document;
+  block.querySelectorAll('.tab-btn[data-group="' + group + '"]').forEach(item => item.classList.remove('active'));
+  block.querySelectorAll('.tab-content[data-group="' + group + '"]').forEach(item => item.classList.remove('active'));
+  btn.classList.add('active');
+  const target = block.querySelector('#' + targetId);
+  if (target) target.classList.add('active');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', changeTab);
+});
+
+document.querySelectorAll('.choice-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const group = button.dataset.choiceGroup;
+    const targetId = button.dataset.choiceTarget;
+    const block = button.closest('.choice-block');
+    block.querySelectorAll('.choice-btn[data-choice-group="' + group + '"]').forEach(item => item.classList.remove('active'));
+    block.querySelectorAll('.choice-panel[data-choice-group="' + group + '"]').forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
+    const target = block.querySelector('#' + targetId);
+    if (target) target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
