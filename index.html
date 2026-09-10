@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Psychiatric Emergencies and Severe Hyperglycemic Crises</title>
-<style>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hyperglycemic Crises &amp; Emergency Psychiatric Stabilization</title><style>
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 62.5%; height:100%; max-width:100vw; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size:1.8rem; line-height:1.8; color:#111; overflow:hidden; position:relative; }
@@ -12,9 +7,10 @@ body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple
 .rise-shell { height:100%; display:flex; flex-direction:column; position:relative; z-index:1; }
 .rise-shell__header { padding:1.8rem 3rem; background:#fff; border-bottom:1px solid #ececec; display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .rise-shell__title { font-size:2.2rem; font-weight:700; line-height:1.2; }
+.rise-shell__meta { font-size:1.5rem; color:#555; white-space:nowrap; }
 .rise-shell__body { flex:1; overflow-y:auto; padding:5rem 0; }
 .rise-page { width:100%; max-width:104rem; margin:0 auto; padding:0 3.2rem; }
-:root { --space-sm:2.2rem; --space-lg:5rem; --space-xl:7rem; --blue:#007CFF; --green:#0b6b3a; --line:#dde4ee; }
+:root { --space-xs:1.4rem; --space-sm:2.2rem; --space-md:3.4rem; --space-lg:5rem; --space-xl:7rem; --blue:#007CFF; --green:#0b6b3a; --ink:#111; --muted:#60656f; --soft:#f5f8fb; --line:#dde4ee; }
 .rise-block { margin-block:var(--space-xl); padding:var(--space-lg); background:#fff; border-radius:.8rem; }
 .rise-block.alt { background:#f7f9fb; box-shadow:0 .4rem 1.6rem rgba(0,0,0,.04); }
 .rise-block.tint { background:#f4f9ff; box-shadow:0 .4rem 1.6rem rgba(0,0,0,.04); }
@@ -32,18 +28,25 @@ body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple
 .cover-btn:hover { background:#0066d1; }
 .hero { border-top:.8rem solid var(--blue); background:linear-gradient(180deg,#fff,#f7fbff); }
 .callout { border-left:.6rem solid var(--blue); padding:1.8rem 2.2rem; background:#f4f9ff; border-radius:.4rem; margin:var(--space-sm) 0; font-weight:650; }
+.callout2 { text-align:center; font-size:2.3rem; line-height:1.6; color:#1a1a1a; max-width:76rem; margin:3.6rem auto; padding:2rem 1rem; position:relative; }
+.callout2::before { content:""; width:6rem; height:.3rem; background:var(--green); border-radius:1rem; display:block; margin:0 auto 2rem; }
 .circle-list { padding-left:0 !important; list-style:none; margin-top:2rem; display:grid; gap:1.2rem; }
 .circle-list li { display:flex; align-items:center; margin:0; }
 .circle-num { width:3.2rem; height:3.2rem; border-radius:50%; background:var(--blue); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; margin-right:1rem; flex:0 0 auto; }
 .split { display:grid; grid-template-columns:minmax(0,1fr) minmax(28rem,.8fr); gap:3rem; align-items:start; }
 .panel { border:1px solid var(--line); border-radius:.8rem; padding:2.2rem; background:#fff; }
 .panel.green { border-left:.5rem solid var(--green); }
-.grid-2, .grid-3, .grid-4 { display:grid; gap:1.8rem; margin-top:2rem; }
+.grid-3, .grid-4, .grid-2 { display:grid; gap:1.8rem; margin-top:2rem; }
 .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
 .grid-4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .mini-card { border:1px solid var(--line); border-radius:.8rem; padding:2rem; background:#fff; min-height:100%; }
 .mini-card h3, .mini-card h4 { color:#0d3155; }
+.reveal-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(23rem,1fr)); gap:1.6rem; margin-top:2rem; }
+.reveal-card { border:1px solid var(--line); border-radius:.8rem; background:#fff; overflow:hidden; }
+.reveal-btn { width:100%; border:0; background:#eef6ff; color:#10243a; padding:1.6rem; font-size:1.8rem; font-weight:700; text-align:left; cursor:pointer; }
+.reveal-content { display:none; padding:1.8rem; }
+.reveal-card.open .reveal-content { display:block; }
 .accordion { border:1px solid #d9e1ea; border-radius:.8rem; overflow:hidden; background:#fff; }
 .accordion-item + .accordion-item { border-top:1px solid #d9e1ea; }
 .accordion-header { background:#f7f9fb; padding:1.6rem 1.8rem; cursor:pointer; font-size:1.8rem; font-weight:700; }
@@ -54,6 +57,10 @@ body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple
 .tab-btn.active { background:#eaf4ff; border-color:#7dbaff; color:#07315b; }
 .tab-content { display:none; margin-top:1.8rem; }
 .tab-content.active { display:block; }
+.card-sequence { position:relative; margin:3rem auto; width:100%; max-width:82rem; }
+.card-sequence::before { content:""; position:absolute; left:2rem; top:0; width:2px; height:100%; background:#d9e1ea; z-index:0; }
+.sequence-card { position:relative; background:#fff; border-radius:.8rem; padding:2.2rem 2.6rem; margin:2.4rem 0 2.4rem 4rem; box-shadow:0 4px 18px rgba(0,0,0,.07); border-left:.4rem solid var(--green); z-index:2; }
+.sequence-date { color:var(--green); font-weight:800; font-size:1.6rem; margin-bottom:.6rem; }
 .choice-block { display:grid; grid-template-columns:28rem 1fr; gap:2rem; align-items:start; }
 .choice-menu { display:grid; gap:1rem; }
 .choice-btn { border:1px solid #cbd7e5; background:#fff; text-align:left; padding:1.4rem 1.6rem; border-radius:.7rem; font-size:1.65rem; font-weight:700; cursor:pointer; }
@@ -63,674 +70,118 @@ body { margin:0; height:100%; background:#ffffff; font-family: system-ui, -apple
 .comparison { display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; margin-top:2rem; }
 .comparison .panel:first-child { border-top:.5rem solid #7a8a9a; }
 .comparison .panel:last-child { border-top:.5rem solid var(--green); }
-.table-wrap { overflow-x:auto; margin-top:2rem; border:1px solid var(--line); border-radius:.8rem; background:#fff; }
-.comparison-table { width:100%; border-collapse:collapse; min-width:68rem; }
-.comparison-table th, .comparison-table td { padding:1.4rem 1.6rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
-.comparison-table th { background:#eef6ff; color:#10243a; font-weight:800; }
-.comparison-table tr:last-child td { border-bottom:0; }
+.quote-line { border-block:1px solid var(--line); padding:2.4rem 0; font-weight:700; color:#1b2d40; }
+.section-divider { text-align:center; background:#fff; border-top:.6rem solid var(--green); box-shadow:0 .4rem 1.6rem rgba(0,0,0,.04); }
+.section-divider h2 { margin-bottom:0; }
+.continue-wrap { width:100%; margin:3rem 0; }
+.continue-btn { width:100%; border:0; border-radius:.8rem; background:#006649; color:#fff; min-height:6.4rem; font-size:1.9rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 .4rem 1.6rem rgba(0,102,73,.18); transition:background .2s ease, transform .2s ease; }
+.continue-btn:hover { background:#00563e; transform:translateY(-1px); }
+.continue-btn:focus-visible { outline:.3rem solid #7dbaff; outline-offset:.3rem; }
+.template-note { color:var(--muted); font-size:1.6rem; }
+.code-note { display:block; margin-top:1rem; padding:1.4rem 1.6rem; border:1px dashed #cbd7e5; border-radius:.8rem; background:#fbfdff; color:#425466; font-size:1.55rem; }
 @media (max-width:850px) {
   .rise-shell__header { align-items:flex-start; flex-direction:column; }
   .split, .grid-2, .grid-3, .grid-4, .choice-block, .comparison { grid-template-columns:1fr; }
   .rise-block { padding:3rem 2rem; margin-block:4rem; }
   .rise-page { padding:0 1.8rem; }
 }
-</style>
-</head>
-<body>
-<svg class="background-dots" viewBox="0 0 800 600">
-  <defs>
-    <pattern id="dots1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-      <circle cx="3" cy="3" r="3" fill="#007CFF"/>
-    </pattern>
-  </defs>
-  <rect width="800" height="600" fill="url(#dots1)" />
-</svg>
 
-<div class="cover-screen" id="cover">
-  <div class="cover-title">Psychiatric Emergencies and Severe Hyperglycemic Crises</div>
-  <button class="cover-btn" id="coverBegin">Begin</button>
+body{overflow:auto;height:auto}.rise-shell{height:auto}.rise-shell__body{overflow:visible;padding-top:1rem}.rise-shell__header{gap:1rem}.rise-shell__meta{white-space:normal}.rise-block{margin-block:4rem}.outline{display:grid;gap:1rem;border:1px solid var(--line)}a{color:#0755a1}.panel{margin-block:1rem}summary{cursor:pointer;font-weight:700}details[open] summary{margin-bottom:1.5rem}.tab-panel{margin-top:1.5rem}[hidden]{display:none!important}iframe{display:block;width:100%;aspect-ratio:4/3;border:0;border-radius:.8rem;margin:3rem 0}.table-wrap{overflow-x:auto}table{border-collapse:collapse;min-width:760px;font-size:1.6rem}th,td{padding:1.5rem;text-align:left;vertical-align:top;border:1px solid var(--line)}thead{background:#eaf4ff}.assessment{margin-top:3rem;border-top:5px solid var(--green);text-align:left}.matching-row{display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;border-bottom:1px solid var(--line);padding:2rem 0}select{width:100%;padding:1rem;font:inherit;align-self:start;min-width:0}.row-feedback{grid-column:1/-1;font-size:1.6rem}.row-feedback:empty{display:none}.secondary{background:white;border:1px solid var(--line);border-radius:.6rem;padding:1.2rem;font:inherit;margin:1rem;cursor:pointer}.check{margin-top:2rem}.feedback{font-weight:700;margin-top:1rem}.good{color:#0b6b3a}.bad{color:#973719}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.summary-grid strong{display:block;font-size:3rem;color:var(--green)}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #007CFF;outline-offset:4px}.section-divider{text-align:left}@media(max-width:650px){.matching-row,.summary-grid{grid-template-columns:1fr}.rise-shell__title{font-size:1.9rem}.rise-block h1{font-size:3.2rem}}@media print{.cover-screen,.outline,.assessment,.summary-grid{display:none!important}.tab-panel[hidden]{display:block!important}.rise-block{break-inside:auto}body{font-size:12pt}.rise-page{max-width:none;padding:0}iframe{display:none}}
+
+.outline{grid-template-columns:1fr 1fr;font-size:1.6rem}details p,details ul{margin-top:1.5rem}.table-wrap table{width:100%;min-width:650px}.rise-block h3{margin-top:2.5rem}@media(max-width:650px){.outline{grid-template-columns:1fr}}
+
+.table-wrap{margin:2rem 0}.sequence-card{margin-left:0}.tab-panel p{margin-top:1rem}summary{line-height:1.4}iframe{margin:3rem 0} .grid-3 .mini-card{font-size:1.65rem}
+
+.flow-arrow{text-align:center;font-size:3rem;color:var(--green)}.grid-3 .panel{padding:1.6rem}.table-wrap table{min-width:800px}.table-wrap{margin-bottom:3rem}
+</style></head><body><div class="rise-shell"><header class="rise-shell__header"><div class="rise-shell__title">Hyperglycemic Crises &amp; Emergency Psychiatric Stabilization</div><div class="rise-shell__meta">Emergency Medicine I · Week 8</div></header><main class="rise-shell__body"><div class="rise-page"><section class="rise-block hero"><p>Emergency Medicine I</p><p>WEEK 8 FACULTY LECTURE</p><h1>Hyperglycemic Crises &amp; Emergency Psychiatric Stabilization</h1><p>Course: Emergency Medicine I (EM I)</p><h2>Course Blueprint &amp; Overview</h2><p>This final week integrates high-acuity metabolic emergencies with critical psychiatric stabilization, emergency sedation, delirium identification, and ED disposition. Clinicians must master the rapid differentiation of primary psychiatric illness from organic medical mimics (such as Hyperosmolar Hyperglycemic State [HHS], ketoacidotic syndromes, sepsis, toxicologic emergencies, and acute intracranial pathology). Special emphasis is placed on managing the severely agitated patient, applying safe pharmacologic sedation protocols, executing capacity assessments, managing geriatric delirium, and establishing safe disposition plans.</p><p>Comprehensive Faculty Lecture: Hyperglycemic Crises &amp; Emergency Psychiatric Stabilization</p></section><nav class="rise-block outline" aria-label="Lesson sections"><a href="#section-0">Section 1: Hyperosmolar Hyperglycemic State (HHS) &amp; Complex Ketoacidotic Syndromes</a><a href="#section-1">Section 2: Resuscitation Protocols &amp; Osmotic Control in HHS</a><a href="#section-2">Section 3: Medical Mimics of Psychiatric Emergencies &amp; Delirium Evaluation</a><a href="#section-3">Section 4: Emergency De-escalation &amp; Pharmacologic Sedation Protocols</a><a href="#section-4">Section 5: Suicide Risk Stratification &amp; Capacity Assessment</a><a href="#section-5">Section 6: ED Behavioral Health Disposition Framework</a></nav><section class="rise-block alt" id="section-0"><h2>Section 1: Hyperosmolar Hyperglycemic State (HHS) &amp; Complex Ketoacidotic Syndromes</h2><p>Hyperglycemic emergencies span a spectrum from Diabetic Ketoacidosis (DKA) to Hyperosmolar Hyperglycemic State (HHS). HHS is a life-threatening crisis defined by extreme hyperglycemia, hyperosmolarity, severe dehydration, and minimal to absent ketoacidosis.</p><div class="grid-2"><div class="panel"><h3>Diabetic Ketoacidosis (DKA)</h3><ul><li>Absolute Insulin Deficiency</li><li>Ketogenesis &amp; Acidosis</li><li>Glucose &gt;250 mg/dL</li><li>Rapid Onset (&lt;24 hours)</li></ul></div>
+<div class="panel"><h3>Hyperosmolar Hyperglycemic State (HHS)</h3><ul><li>Relative Insulin Deficiency</li><li>Extreme Hyperglycemia</li><li>Osmolality &gt;320 mOsm/kg</li><li>Insidious (Days–Weeks)</li></ul></div>
 </div>
-
-<div class="rise-shell">
-<header class="rise-shell__header">
-  <div class="rise-shell__title">Psychiatric Emergencies and Severe Hyperglycemic Crises</div>
-</header>
-<main class="rise-shell__body">
-<div class="rise-page">
-
-<section class="rise-block hero">
-  <h1>Psychiatric Emergencies and Severe Hyperglycemic Crises</h1>
-  <h2>Lecture Overview</h2>
-  <p>This lecture focuses on the emergency evaluation, stabilization, and disposition of severe psychiatric and hyperglycemic emergencies encountered in emergency medicine. Students will examine hyperosmolar hyperglycemic state (HHS), ketoacidotic syndromes, acute agitation, psychosis, mood disorders, geriatric psychiatric emergencies, emergency sedation, capacity assessment, and psychiatric disposition planning.</p>
-  <p>Emphasis is placed on recognition of dangerous presentations, patient and staff safety, identification of medical causes of behavioral changes, de-escalation strategies, emergency sedation, and continuous reassessment during high-acuity psychiatric and metabolic emergencies.</p>
-  <div class="callout">As the final week of Emergency Medicine I, this lecture integrates many of the concepts discussed throughout the course, including shock recognition, airway management, metabolic emergencies, altered mental status, toxicologic evaluation, and disposition decision-making.</div>
-</section>
-
-<section class="rise-block alt">
-  <h2>Hyperosmolar Hyperglycemic State (HHS)</h2>
-  <h3>Key Concepts</h3>
-  <p>HHS is a life-threatening hyperglycemic emergency characterized by:</p>
-  <ul>
-    <li>Severe hyperglycemia</li>
-    <li>Hyperosmolarity</li>
-    <li>Profound dehydration</li>
-    <li>Minimal or absent ketosis</li>
-  </ul>
-  <p>Patients frequently present later in the disease process than those with DKA and often demonstrate significant neurologic dysfunction.</p>
-  <div class="rise-tabs">
-    <button class="tab-btn active" type="button" data-group="hhs" data-target="hhs-pathophysiology">Pathophysiology</button>
-    <button class="tab-btn" type="button" data-group="hhs" data-target="hhs-findings">Common Clinical Findings</button>
-    <button class="tab-btn" type="button" data-group="hhs" data-target="hhs-priorities">Stabilization Priorities</button>
-  </div>
-  <div class="tab-content active" data-group="hhs" id="hhs-pathophysiology">
-    <div class="panel">
-      <p>Progressive hyperglycemia results in:</p>
-      <ul>
-        <li>Osmotic diuresis</li>
-        <li>Severe dehydration</li>
-        <li>Electrolyte losses</li>
-        <li>Reduced cerebral perfusion</li>
-        <li>Altered mental status</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="hhs" id="hhs-findings">
-    <div class="panel">
-      <ul>
-        <li>Severe hyperglycemia</li>
-        <li>Dehydration</li>
-        <li>Weakness</li>
-        <li>Confusion</li>
-        <li>Altered mental status</li>
-        <li>Neurologic deficits</li>
-        <li>Tachycardia</li>
-        <li>Hypotension</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="hhs" id="hhs-priorities">
-    <div class="panel">
-      <ul>
-        <li>Aggressive fluid resuscitation</li>
-        <li>Electrolyte monitoring</li>
-        <li>Glucose monitoring</li>
-        <li>Insulin therapy</li>
-        <li>Hemodynamic support</li>
-        <li>Neurologic reassessment</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="rise-block">
-  <h2>Key Differences from DKA</h2>
-  <div class="table-wrap">
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Finding</th>
-          <th>DKA</th>
-          <th>HHS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Typical Patient</td>
-          <td>Type 1 Diabetes</td>
-          <td>Type 2 Diabetes</td>
-        </tr>
-        <tr>
-          <td>Ketosis</td>
-          <td>Present</td>
-          <td>Minimal</td>
-        </tr>
-        <tr>
-          <td>Acidosis</td>
-          <td>Significant</td>
-          <td>Mild or Absent</td>
-        </tr>
-        <tr>
-          <td>Glucose</td>
-          <td>Elevated</td>
-          <td>Often &gt;600 mg/dL</td>
-        </tr>
-        <tr>
-          <td>Mental Status Changes</td>
-          <td>Variable</td>
-          <td>Common</td>
-        </tr>
-        <tr>
-          <td>Dehydration</td>
-          <td>Moderate-Severe</td>
-          <td>Severe</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Neurologic dysfunction in HHS often reflects severe dehydration and hyperosmolarity.</p>
-  </div>
-</section>
-
-<section class="rise-block tint">
-  <h2>Ketoacidotic Syndromes</h2>
-  <h3>Key Concepts</h3>
-  <p>Ketoacidotic syndromes occur when insufficient insulin availability results in ketone production and metabolic acidosis.</p>
-  <p>Although DKA remains the most common ketoacidotic emergency, clinicians should recognize that multiple causes of ketosis and acidosis may exist.</p>
-  <div class="choice-block">
-    <div class="choice-menu">
-      <button class="choice-btn active" type="button" data-choice-group="keto" data-choice-target="keto-findings">Clinical Findings</button>
-      <button class="choice-btn" type="button" data-choice-group="keto" data-choice-target="keto-concerning">Concerning Features</button>
-      <button class="choice-btn" type="button" data-choice-group="keto" data-choice-target="keto-priorities">Emergency Priorities</button>
-    </div>
-    <div>
-      <div class="choice-panel active panel" id="keto-findings" data-choice-group="keto">
-        <ul>
-          <li>Tachypnea</li>
-          <li>Dehydration</li>
-          <li>Nausea and vomiting</li>
-          <li>Abdominal pain</li>
-          <li>Altered mental status</li>
-          <li>Metabolic acidosis</li>
-          <li>Electrolyte abnormalities</li>
-        </ul>
-      </div>
-      <div class="choice-panel panel" id="keto-concerning" data-choice-group="keto">
-        <ul>
-          <li>Severe acidemia</li>
-          <li>Respiratory fatigue</li>
-          <li>Progressive mental status decline</li>
-          <li>Dysrhythmias</li>
-          <li>Shock</li>
-        </ul>
-      </div>
-      <div class="choice-panel panel" id="keto-priorities" data-choice-group="keto">
-        <ul>
-          <li>Fluid resuscitation</li>
-          <li>Electrolyte monitoring</li>
-          <li>Cardiac monitoring</li>
-          <li>Acid-base assessment</li>
-          <li>Continuous reassessment</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Metabolic stabilization requires continuous reassessment because electrolyte abnormalities frequently evolve during treatment.</p>
-  </div>
-</section>
-
-<section class="rise-block alt">
-  <h2>Altered Mental Status in Emergency Medicine</h2>
-  <h3>Key Concepts</h3>
-  <p>Altered mental status is one of the most common and highest-risk presentations encountered in emergency medicine.</p>
-  <div class="split">
-    <div class="panel">
-      <p>Behavioral changes may represent:</p>
-      <ul>
-        <li>Metabolic disease</li>
-        <li>Toxicologic emergencies</li>
-        <li>Infection</li>
-        <li>Psychiatric illness</li>
-        <li>Neurologic disease</li>
-        <li>Medication effects</li>
-      </ul>
-    </div>
-    <div class="panel green">
-      <h3>Clinical Pearl</h3>
-      <p>The most dangerous mistake in psychiatric emergencies is assuming the patient has a psychiatric illness before excluding a medical cause.</p>
-    </div>
-  </div>
-  <div class="comparison">
-    <div class="panel">
-      <h3>Immediate Priorities</h3>
-      <ul>
-        <li>Airway assessment</li>
-        <li>Glucose assessment</li>
-        <li>Oxygenation and ventilation evaluation</li>
-        <li>Hemodynamic assessment</li>
-        <li>Neurologic examination</li>
-        <li>Safety assessment</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Life-Threatening Causes</h3>
-      <ul>
-        <li>Hypoglycemia</li>
-        <li>HHS</li>
-        <li>DKA</li>
-        <li>Sepsis</li>
-        <li>Hypoxia</li>
-        <li>Intracranial hemorrhage</li>
-        <li>Toxicologic emergencies</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="rise-block">
-  <h2>Psychiatric Evaluation in the Emergency Department</h2>
-  <h3>Key Concepts</h3>
-  <p>Psychiatric emergencies require simultaneous evaluation of both psychiatric and medical causes of presentation.</p>
-  <p>Not all agitation, confusion, hallucinations, or psychosis is psychiatric in origin.</p>
-  <div class="comparison">
-    <div class="panel">
-      <h3>Initial Priorities</h3>
-      <ul>
-        <li>Medical screening examination</li>
-        <li>Airway assessment</li>
-        <li>Suicide risk assessment</li>
-        <li>Homicide risk assessment</li>
-        <li>Identification of medical instability</li>
-        <li>Evaluation for intoxication or withdrawal</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Important Medical Mimics</h3>
-      <ul>
-        <li>Hypoglycemia</li>
-        <li>Hyperglycemia</li>
-        <li>Sepsis</li>
-        <li>Hypoxia</li>
-        <li>Electrolyte abnormalities</li>
-        <li>Medication toxicity</li>
-        <li>Intracranial pathology</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Psychiatric symptoms accompanied by abnormal vital signs should be considered medical until proven otherwise.</p>
-  </div>
-</section>
-
-<section class="rise-block tint">
-  <h2>Acute Agitation</h2>
-  <h3>Key Concepts</h3>
-  <p>Agitation is a behavioral emergency that may place patients, staff, and others at immediate risk.</p>
-  <p>Rapid identification of the underlying cause is essential.</p>
-  <div class="accordion">
-    <div class="accordion-item">
-      <div class="accordion-header">Common Causes</div>
-      <div class="accordion-content">
-        <ul>
-          <li>Psychosis</li>
-          <li>Substance intoxication</li>
-          <li>Withdrawal syndromes</li>
-          <li>Delirium</li>
-          <li>Metabolic emergencies</li>
-          <li>Psychiatric illness</li>
-        </ul>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header">Initial Priorities</div>
-      <div class="accordion-content">
-        <ul>
-          <li>Scene safety</li>
-          <li>Verbal de-escalation</li>
-          <li>Medical evaluation</li>
-          <li>Identification of instability</li>
-          <li>Continuous reassessment</li>
-        </ul>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header">De-Escalation Principles</div>
-      <div class="accordion-content">
-        <ul>
-          <li>Calm communication</li>
-          <li>Respectful interaction</li>
-          <li>Limit environmental stimulation</li>
-          <li>Team coordination</li>
-          <li>Maintain safe distance</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Verbal de-escalation should be attempted whenever safe and feasible before pharmacologic intervention.</p>
-  </div>
-</section>
-
-<section class="rise-block alt">
-  <h2>Emergency Sedation</h2>
-  <h3>Key Concepts</h3>
-  <p>Some patients require pharmacologic sedation to permit evaluation and treatment while maintaining safety.</p>
-  <div class="rise-tabs">
-    <button class="tab-btn active" type="button" data-group="sedation" data-target="sedation-benzo">Benzodiazepines</button>
-    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-antipsychotics">Antipsychotics</button>
-    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-ketamine">Ketamine</button>
-    <button class="tab-btn" type="button" data-group="sedation" data-target="sedation-risks">Sedation Risks</button>
-  </div>
-  <div class="tab-content active" data-group="sedation" id="sedation-benzo">
-    <div class="panel">
-      <p>Useful for:</p>
-      <ul>
-        <li>Anxiety</li>
-        <li>Withdrawal</li>
-        <li>Sympathomimetic intoxication</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="sedation" id="sedation-antipsychotics">
-    <div class="panel">
-      <p>Useful for:</p>
-      <ul>
-        <li>Psychosis</li>
-        <li>Behavioral agitation</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="sedation" id="sedation-ketamine">
-    <div class="panel">
-      <p>May be appropriate for severe agitation when immediate control is necessary.</p>
-    </div>
-  </div>
-  <div class="tab-content" data-group="sedation" id="sedation-risks">
-    <div class="panel">
-      <ul>
-        <li>Respiratory depression</li>
-        <li>Airway compromise</li>
-        <li>Hypoxia</li>
-        <li>Dysrhythmias</li>
-        <li>Hypotension</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Sedated psychiatric patients require the same physiologic monitoring as any other critically ill emergency medicine patient.</p>
-  </div>
-</section>
-
-<section class="rise-block">
-  <h2>Suicide Risk Assessment</h2>
-  <h3>Key Concepts</h3>
-  <p>Suicidal ideation is a common emergency department presentation requiring careful assessment and disposition planning.</p>
-  <div class="comparison">
-    <div class="panel">
-      <h3>Assessment Components</h3>
-      <p>Evaluate:</p>
-      <ul>
-        <li>Suicidal ideation</li>
-        <li>Intent</li>
-        <li>Plan</li>
-        <li>Access to means</li>
-        <li>Previous attempts</li>
-        <li>Protective factors</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>High-Risk Features</h3>
-      <ul>
-        <li>Active suicide plan</li>
-        <li>Previous attempts</li>
-        <li>Psychosis</li>
-        <li>Substance abuse</li>
-        <li>Lack of social support</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Risk assessment should focus on both immediate safety and future risk.</p>
-  </div>
-</section>
-
-<section class="rise-block tint">
-  <h2>Psychosis</h2>
-  <h3>Key Concepts</h3>
-  <p>Psychosis may result from psychiatric illness, substance use, neurologic disease, or medical instability.</p>
-  <div class="comparison">
-    <div class="panel">
-      <h3>Common Findings</h3>
-      <ul>
-        <li>Hallucinations</li>
-        <li>Delusions</li>
-        <li>Paranoia</li>
-        <li>Disorganized behavior</li>
-        <li>Agitation</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Emergency Priorities</h3>
-      <ul>
-        <li>Ensure safety</li>
-        <li>Exclude medical causes</li>
-        <li>Evaluate for intoxication</li>
-        <li>Assess decision-making capacity</li>
-        <li>Determine disposition</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>New-onset psychosis in older adults should be considered medical until proven otherwise.</p>
-  </div>
-</section>
-
-<section class="rise-block alt">
-  <h2>Psychiatric Emergencies in Older Adults</h2>
-  <h3>Key Concepts</h3>
-  <p>Psychiatric complaints in elderly patients frequently have underlying medical contributors.</p>
-  <div class="choice-block">
-    <div class="choice-menu">
-      <button class="choice-btn active" type="button" data-choice-group="older-adults" data-choice-target="older-presentations">Common Presentations</button>
-      <button class="choice-btn" type="button" data-choice-group="older-adults" data-choice-target="older-considerations">Special Considerations</button>
-    </div>
-    <div>
-      <div class="choice-panel active panel" id="older-presentations" data-choice-group="older-adults">
-        <ul>
-          <li>Delirium</li>
-          <li>Dementia-related agitation</li>
-          <li>Depression</li>
-          <li>Medication toxicity</li>
-          <li>Psychosis</li>
-        </ul>
-      </div>
-      <div class="choice-panel panel" id="older-considerations" data-choice-group="older-adults">
-        <p>Older adults are at increased risk for:</p>
-        <ul>
-          <li>Polypharmacy</li>
-          <li>Drug interactions</li>
-          <li>Delirium</li>
-          <li>Atypical presentations</li>
-          <li>Medical mimics</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Delirium should be considered a medical emergency until proven otherwise.</p>
-  </div>
-</section>
-
-<section class="rise-block">
-  <h2>Capacity and Refusal of Care</h2>
-  <h3>Key Concepts</h3>
-  <p>Patients may refuse treatment only if they possess decision-making capacity.</p>
-  <h3>Capacity Assessment</h3>
-  <p>The patient must demonstrate the ability to:</p>
-  <ul class="circle-list">
-    <li><div class="circle-num">1</div><span>Understand information</span></li>
-    <li><div class="circle-num">2</div><span>Appreciate consequences</span></li>
-    <li><div class="circle-num">3</div><span>Reason through options</span></li>
-    <li><div class="circle-num">4</div><span>Communicate a choice</span></li>
-  </ul>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Capacity is decision-specific and may fluctuate over time.</p>
-  </div>
-</section>
-
-<section class="rise-block tint">
-  <h2>Psychiatric Disposition Decisions</h2>
-  <h3>Key Concepts</h3>
-  <p>Disposition is one of the most important decisions made in emergency medicine.</p>
-  <p>Clinicians must determine:</p>
-  <ul>
-    <li>Who can safely be discharged</li>
-    <li>Who requires admission</li>
-    <li>Who requires involuntary treatment</li>
-    <li>Who has ongoing medical instability</li>
-  </ul>
-  <div class="comparison">
-    <div class="panel">
-      <h3>Psychiatric Admission Considerations</h3>
-      <ul>
-        <li>Active suicidal ideation</li>
-        <li>Danger to others</li>
-        <li>Grave disability</li>
-        <li>Severe psychosis</li>
-        <li>Inability to care for self</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Medical Admission Considerations</h3>
-      <ul>
-        <li>HHS</li>
-        <li>DKA</li>
-        <li>Delirium</li>
-        <li>Persistent abnormal vital signs</li>
-        <li>Toxicologic instability</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Clinical Pearl</h3>
-    <p>Safe psychiatric disposition requires both psychiatric and medical stability.</p>
-  </div>
-</section>
-
-<section class="rise-block alt">
-  <h2>Clinical Reassessment</h2>
-  <div class="rise-tabs">
-    <button class="tab-btn active" type="button" data-group="reassessment" data-target="reassess-hyperglycemic">Hyperglycemic Emergencies</button>
-    <button class="tab-btn" type="button" data-group="reassessment" data-target="reassess-agitated">Agitated Patients</button>
-    <button class="tab-btn" type="button" data-group="reassessment" data-target="reassess-psychiatric">Psychiatric Patients</button>
-  </div>
-  <div class="tab-content active" data-group="reassessment" id="reassess-hyperglycemic">
-    <div class="panel">
-      <p>Monitor:</p>
-      <ul>
-        <li>Mental status</li>
-        <li>Glucose</li>
-        <li>Electrolytes</li>
-        <li>Fluid status</li>
-        <li>Neurologic findings</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="reassessment" id="reassess-agitated">
-    <div class="panel">
-      <p>Monitor:</p>
-      <ul>
-        <li>Airway</li>
-        <li>Respiratory status</li>
-        <li>Sedation depth</li>
-        <li>Temperature</li>
-        <li>Hemodynamics</li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" data-group="reassessment" id="reassess-psychiatric">
-    <div class="panel">
-      <p>Monitor:</p>
-      <ul>
-        <li>Safety risk</li>
-        <li>Suicidal ideation</li>
-        <li>Capacity</li>
-        <li>Response to treatment</li>
-        <li>Disposition readiness</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout">
-    <h3>Key Principle</h3>
-    <p>Patients with psychiatric and metabolic emergencies frequently deteriorate despite appearing stable during the initial evaluation.</p>
-  </div>
-</section>
-
-<section class="rise-block tint">
-  <h2>Key Takeaways</h2>
-  <p>Students should understand:</p>
-  <ul class="circle-list">
-    <li><div class="circle-num">1</div><span>Hyperosmolar Hyperglycemic State (HHS)</span></li>
-    <li><div class="circle-num">2</div><span>Ketoacidotic syndromes</span></li>
-    <li><div class="circle-num">3</div><span>Altered mental status evaluation</span></li>
-    <li><div class="circle-num">4</div><span>Medical screening of psychiatric patients</span></li>
-    <li><div class="circle-num">5</div><span>Acute agitation and behavioral emergencies</span></li>
-    <li><div class="circle-num">6</div><span>Emergency sedation strategies</span></li>
-    <li><div class="circle-num">7</div><span>Suicide risk assessment</span></li>
-    <li><div class="circle-num">8</div><span>Psychosis and behavioral crises</span></li>
-    <li><div class="circle-num">9</div><span>Geriatric psychiatric emergencies</span></li>
-    <li><div class="circle-num">10</div><span>Capacity assessment</span></li>
-    <li><div class="circle-num">11</div><span>Psychiatric disposition decisions</span></li>
-    <li><div class="circle-num">12</div><span>Continuous reassessment during psychiatric and metabolic emergencies</span></li>
-  </ul>
-</section>
-
-<section class="rise-block">
-  <h2>Related Readings</h2>
-  <div class="grid-3">
-    <div class="mini-card"><p>Tintinalli Ch. 226 — Ketoacidotic Syndromes</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 227 — Hyperosmolar Hyperglycemic State</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 286 — Mental Health Disorders: ED Evaluation and Disposition</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 287 — Acute Agitation</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 288 — Mental Health Disorders of the Elderly</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 289 — Mood and Anxiety Disorders</p></div>
-    <div class="mini-card"><p>Tintinalli Ch. 290 — Psychoses</p></div>
-  </div>
-</section>
-
+<p class="callout2">Overlapping Presentations ↔</p><h3>Pathophysiological Mechanisms</h3><p>Hyperosmolar Hyperglycemic State (HHS): Residual endogenous insulin suppresses hepatic lipolysis and ketogenesis but cannot prevent peripheral insulin resistance and massive hepatic gluconeogenesis. Hyperglycemia typically exceeds 600 mg/dL (often &gt;1,000 mg/dL), inducing severe osmotic diuresis, massive total body water deficits (8–12 L or 100–200 mL/kg), progressive pre-renal azotemia, and effective serum hyperosmolality (&gt;320 mOsm/kg).</p><h3>Ketoacidotic Syndromes Beyond Typical DKA</h3><div class="tabset"><div class="rise-tabs" role="tablist" aria-label="Clinical comparison"><button class="tab-btn active" role="tab" id="t1-0" aria-controls="p1-0" aria-selected="true" tabindex="0">Euglycemic DKA:</button><button class="tab-btn " role="tab" id="t1-1" aria-controls="p1-1" aria-selected="false" tabindex="-1">Alcoholic Ketoacidosis (AKA):</button><button class="tab-btn " role="tab" id="t1-2" aria-controls="p1-2" aria-selected="false" tabindex="-1">Starvation Ketoacidosis:</button></div>
+<div class="tab-panel panel" role="tabpanel" id="p1-0" aria-labelledby="t1-0" ><p>Seen with SGLT2 inhibitors (&quot;flozins&quot;), pregnancy, starvation, or severe hepatic dysfunction. Serum glucose is &lt;250 mg/dL, but high anion gap ketoacidosis persists.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p1-1" aria-labelledby="t1-1" hidden><p>Occurs in chronic alcohol dependence following binge drinking and prolonged emesis/starvation. Characterized by low or normal blood glucose, high anion gap metabolic acidosis driven by β-hydroxybutyrate, and a high NADH/NAD⁺ ratio. Managed with isotonic saline, glucose, and thiamine (not insulin).</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p1-2" aria-labelledby="t1-2" hidden><p>Mild ketoacidosis (HCO₃⁻ usually &gt;18 mEq/L) caused by prolonged glycogen depletion and lipolysis.</p></div>
 </div>
-</main>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Ketoacidotic Syndromes Beyond Typical DKA"><table><thead><tr><th scope="col">Parameter</th><th scope="col">Hyperosmolar Hyperglycemic State (HHS)</th><th scope="col">Alcoholic Ketoacidosis (AKA)</th><th scope="col">Euglycemic DKA</th></tr></thead><tbody><tr><th scope="row">Primary Driver</th><td>Relative insulin deficiency + extreme gluconeogenesis</td><td>Alcohol cessation, starvation, depleted glycogen</td><td>SGLT2i, pregnancy, relative lack of glucose</td></tr><tr><th scope="row">Serum Glucose</th><td>Marked elevation (&gt;600 mg/dL; often &gt;1,000 mg/dL)</td><td>Normal, low, or mildly elevated (&lt;250 mg/dL)</td><td>Low/Normal (&lt;250 mg/dL)</td></tr><tr><th scope="row">Serum Osmolality</th><td>Severely Elevated (&gt;320 mOsm/kg)</td><td>Mildly elevated / Normal</td><td>Variable</td></tr><tr><th scope="row">Acid-Base Status</th><td>Normal to mild acidosis (pH &gt; 7.30, HCO₃⁻ &gt; 18 mEq/L)</td><td>High Anion Gap Metabolic Acidosis</td><td>High Anion Gap Metabolic Acidosis</td></tr><tr><th scope="row">Dominant Ketone</th><td>Absent or trace</td><td>β-Hydroxybutyrate</td><td>β-Hydroxybutyrate</td></tr><tr><th scope="row">Fluid Deficit</th><td>Extreme (8–12 L)</td><td>Moderate (3–5 L)</td><td>Moderate (4–6 L)</td></tr><tr><th scope="row">Primary Therapy</th><td>Aggressive isotonic crystalloids, delayed low-dose insulin</td><td>D₅ Normal Saline + Thiamine (No Insulin)</td><td>Normal Saline + D₅ + Insulin Infusion</td></tr></tbody></table></div>
+<h3>Diagnostic Formulae for Hyperglycemic Crises</h3><div class="panel green"><p>Effective Serum Osmolality:</p><p>Effective Osmolality (mOsm/kg) = 2 × Measured Na⁺ (mEq/L) + Serum Glucose (mg/dL) / 18</p><p>Calculated Corrected Sodium:</p><p>Corrected Na⁺ = Measured Na⁺ + 0.016 × (Serum Glucose − 100) (Use 2.0 mEq/L correction factor for glucose levels &gt;400 mg/dL).</p></div>
+<div class="assessment panel"><h3>Ketoacidotic Syndromes Beyond Typical DKA</h3><p class="template-note">Match each description to the corresponding category. Complete every row, then check your matches.</p><div class="matching-row" data-answer="2" data-explanation="Normal Saline + D₅ + Insulin Infusion"><div id="label-a1-0"><p>SGLT2i, pregnancy, relative lack of glucose</p><p>Low/Normal (&lt;250 mg/dL)</p><p>High Anion Gap Metabolic Acidosis</p></div>
+<select aria-labelledby="label-a1-0"><option value="">Choose…</option><option value="0">Hyperosmolar Hyperglycemic State (HHS)</option><option value="1">Alcoholic Ketoacidosis (AKA)</option><option value="2">Euglycemic DKA</option></select><div class="row-feedback" role="status"></div>
 </div>
-
-<script>
-document.getElementById('coverBegin').addEventListener('click', () => {
-  document.getElementById('cover').classList.add('hidden');
-});
-
-document.querySelectorAll('.accordion-header').forEach(header => {
-  header.addEventListener('click', () => {
-    header.parentElement.classList.toggle('open');
-  });
-});
-
-function changeTab(event) {
-  const btn = event.currentTarget;
-  const group = btn.dataset.group;
-  const targetId = btn.dataset.target;
-  const block = btn.closest('.rise-block') || document;
-  block.querySelectorAll('.tab-btn[data-group="' + group + '"]').forEach(item => item.classList.remove('active'));
-  block.querySelectorAll('.tab-content[data-group="' + group + '"]').forEach(item => item.classList.remove('active'));
-  btn.classList.add('active');
-  const target = block.querySelector('#' + targetId);
-  if (target) target.classList.add('active');
-}
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', changeTab);
-});
-
-document.querySelectorAll('.choice-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const group = button.dataset.choiceGroup;
-    const targetId = button.dataset.choiceTarget;
-    const block = button.closest('.choice-block');
-    block.querySelectorAll('.choice-btn[data-choice-group="' + group + '"]').forEach(item => item.classList.remove('active'));
-    block.querySelectorAll('.choice-panel[data-choice-group="' + group + '"]').forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    const target = block.querySelector('#' + targetId);
-    if (target) target.classList.add('active');
-  });
-});
-</script>
-</body>
-</html>
+<div class="matching-row" data-answer="0" data-explanation="Aggressive isotonic crystalloids, delayed low-dose insulin"><div id="label-a1-1"><p>Relative insulin deficiency + extreme gluconeogenesis</p><p>Marked elevation (&gt;600 mg/dL; often &gt;1,000 mg/dL)</p><p>Normal to mild acidosis (pH &gt; 7.30, HCO₃⁻ &gt; 18 mEq/L)</p></div>
+<select aria-labelledby="label-a1-1"><option value="">Choose…</option><option value="0">Hyperosmolar Hyperglycemic State (HHS)</option><option value="1">Alcoholic Ketoacidosis (AKA)</option><option value="2">Euglycemic DKA</option></select><div class="row-feedback" role="status"></div>
+</div>
+<div class="matching-row" data-answer="1" data-explanation="D₅ Normal Saline + Thiamine (No Insulin)"><div id="label-a1-2"><p>Alcohol cessation, starvation, depleted glycogen</p><p>Normal, low, or mildly elevated (&lt;250 mg/dL)</p><p>High Anion Gap Metabolic Acidosis</p></div>
+<select aria-labelledby="label-a1-2"><option value="">Choose…</option><option value="0">Hyperosmolar Hyperglycemic State (HHS)</option><option value="1">Alcoholic Ketoacidosis (AKA)</option><option value="2">Euglycemic DKA</option></select><div class="row-feedback" role="status"></div>
+</div>
+<button class="cover-btn check" type="button">Check matches</button><button class="secondary retry" type="button">Reset activity</button><div class="feedback" role="status"></div>
+</div>
+</section>
+<section class="rise-block tint" id="section-1"><h2>Section 2: Resuscitation Protocols &amp; Osmotic Control in HHS</h2><p>The mortality in HHS (10–20%) is significantly higher than in DKA (&lt;1%), predominantly due to underlying comorbidities, advanced age, severe shock, and underlying sepsis.</p><iframe src="https://drive.google.com/file/d/1WQn-vIIYlxcPlbeTQ3bV1F9XpAe31RQf/preview" loading="lazy" title="Section 2: Resuscitation Protocols &amp; Osmotic Control in HHS" allowfullscreen></iframe><h3>Stepwise Resuscitation Protocol</h3><h3>1. Primary Fluid Resuscitation (Priority #1)</h3><div class="sequence-card"><ul><li>Administer 1–1.5 L of 0.9% NaCl (or balanced crystalloids like Plasmalyte) in the first hour (10–20 mL/kg/hr) to expand intravascular volume and restore renal perfusion.</li><li>Calculate corrected serum sodium. If corrected sodium is normal or high, switch to 0.45% NaCl at 250–500 mL/hr. If corrected sodium is low, continue 0.9% NaCl.</li><li>Osmolality Target: Decrease serum osmolality at a maximum rate of 3–8 mOsm/kg/hr (or reduce glucose by 50–75 mg/dL/hr). Rapid drops risk cerebral edema.</li></ul></div>
+<h3>2. Potassium Management Prior to Insulin</h3><div class="sequence-card"><ul><li>Check serum potassium prior to starting insulin.</li><li>If K⁺ &lt; 3.3 mEq/L, hold insulin and give IV KCl (20–40 mEq/hr) until K⁺ &gt; 3.3 mEq/L.</li><li>If K⁺ is 3.3–5.2 mEq/L, add 20–30 mEq KCl per liter of maintenance fluid to keep potassium between 4.0–5.0 mEq/L.</li></ul></div>
+<h3>3. Delayed Low-Dose Insulin Infusion</h3><div class="sequence-card"><ul><li>Unlike DKA, insulin administration in HHS should be delayed until initial volume expansion is underway.</li><li>Initiate IV regular insulin infusion at 0.05–0.1 units/kg/hr.</li><li>Once blood glucose reaches 300 mg/dL, add 5% Dextrose to maintenance fluids (D₅ ½NS) and reduce insulin rate to 0.02–0.05 units/kg/hr to maintain glucose between 250–300 mg/dL until hyperosmolality and mental status clear.</li></ul></div>
+</section>
+<section class="rise-block alt" id="section-2"><h2>Section 3: Medical Mimics of Psychiatric Emergencies &amp; Delirium Evaluation</h2><p>A fundamental rule of emergency medicine is that all behavioral disturbances are considered medical (organic) until proven otherwise. Assuming an acute behavioral change is purely psychiatric without an organic screening evaluation is a critical error.</p><h3>Delirium vs. Primary Psychosis Differential</h3><div class="table-wrap" tabindex="0" role="region" aria-label="Delirium vs. Primary Psychosis Differential"><table><thead><tr><th scope="col">Clinical Feature</th><th scope="col">Delirium (Organic / Medical)</th><th scope="col">Primary Psychosis (Psychiatric)</th></tr></thead><tbody><tr><th scope="row">Onset</th><td>Acute / Subacute (Hours to days)</td><td>Insidious or chronic (Weeks to months)</td></tr><tr><th scope="row">Course</th><td>Fluctuating attention and alertness</td><td>Steady course; alert and oriented</td></tr><tr><th scope="row">Vital Signs</th><td>Frequently abnormal (Fever, tachycardia, BP instability)</td><td>Typically normal</td></tr><tr><th scope="row">Age of Onset</th><td>Frequently extreme of age (&gt;65 years or pediatrics)</td><td>Late adolescence to early adulthood (18–30 years)</td></tr><tr><th scope="row">Hallucinations</th><td>Prominently Visual, Tactile, or Olfactory</td><td>Prominently Auditory</td></tr><tr><th scope="row">Pupils / Neurologic</th><td>Abnormal (Mydriasis, focal deficits, tremor, asterixis)</td><td>Unremarkable physical/neurologic exam</td></tr><tr><th scope="row">Reversibility</th><td>Reversible upon fixing underlying medical trigger</td><td>Chronic illness requiring long-term therapy</td></tr></tbody></table></div>
+<iframe src="https://drive.google.com/file/d/11DNez8uhvlrMQ8-54x1AcavNIycS85kq/preview" loading="lazy" title="Delirium vs. Primary Psychosis Differential" allowfullscreen></iframe><div class="assessment panel"><h3>Delirium vs. Primary Psychosis Differential</h3><p class="template-note">Match each description to the corresponding category. Complete every row, then check your matches.</p><div class="matching-row" data-answer="1" data-explanation="Chronic illness requiring long-term therapy"><div id="label-a2-0"><p>Insidious or chronic (Weeks to months)</p><p>Steady course; alert and oriented</p><p>Typically normal</p></div>
+<select aria-labelledby="label-a2-0"><option value="">Choose…</option><option value="0">Delirium (Organic / Medical)</option><option value="1">Primary Psychosis (Psychiatric)</option></select><div class="row-feedback" role="status"></div>
+</div>
+<div class="matching-row" data-answer="0" data-explanation="Reversible upon fixing underlying medical trigger"><div id="label-a2-1"><p>Acute / Subacute (Hours to days)</p><p>Fluctuating attention and alertness</p><p>Frequently abnormal (Fever, tachycardia, BP instability)</p></div>
+<select aria-labelledby="label-a2-1"><option value="">Choose…</option><option value="0">Delirium (Organic / Medical)</option><option value="1">Primary Psychosis (Psychiatric)</option></select><div class="row-feedback" role="status"></div>
+</div>
+<button class="cover-btn check" type="button">Check matches</button><button class="secondary retry" type="button">Reset activity</button><div class="feedback" role="status"></div>
+</div>
+<h3>High-Yield Medical Mimics of Behavioral Disturbances</h3><div class="tabset"><div class="rise-tabs" role="tablist" aria-label="Clinical comparison"><button class="tab-btn active" role="tab" id="t2-0" aria-controls="p2-0" aria-selected="true" tabindex="0">Metabolic:</button><button class="tab-btn " role="tab" id="t2-1" aria-controls="p2-1" aria-selected="false" tabindex="-1">Infectious:</button><button class="tab-btn " role="tab" id="t2-2" aria-controls="p2-2" aria-selected="false" tabindex="-1">Toxicologic:</button><button class="tab-btn " role="tab" id="t2-3" aria-controls="p2-3" aria-selected="false" tabindex="-1">Neurologic:</button><button class="tab-btn " role="tab" id="t2-4" aria-controls="p2-4" aria-selected="false" tabindex="-1">Hypoxia / Hypercapnia:</button></div>
+<div class="tab-panel panel" role="tabpanel" id="p2-0" aria-labelledby="t2-0" ><p>Hypoglycemia, HHS/DKA, hyponatremia, hypercalcemia, uremic encephalopathy, hepatic encephalopathy.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p2-1" aria-labelledby="t2-1" hidden><p>Sepsis, meningitis, encephalitis, urinary tract infection (elderly), pneumonia.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p2-2" aria-labelledby="t2-2" hidden><p>Anticholinergic toxicity, sympathomimetic intoxication, acute alcohol/sedative-hypnotic withdrawal (Delirium Tremens), carbon monoxide.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p2-3" aria-labelledby="t2-3" hidden><p>Acute ischemic stroke, intracranial hemorrhage, non-convulsive status epilepticus, CNS neoplasm.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p2-4" aria-labelledby="t2-4" hidden><p>Hypoxemic respiratory failure, hypercapnic encephalopathy.</p></div>
+</div>
+</section>
+<section class="rise-block tint" id="section-3"><h2>Section 4: Emergency De-escalation &amp; Pharmacologic Sedation Protocols</h2><p>When managing acute agitation, clinicians must prioritize staff and patient safety using a stepwise framework:</p><h3>Staged Agitation Management Protocol</h3><div class="card-sequence"><div class="sequence-card"><p>LEVEL 1: NON-PHARMACOLOGIC / ENVIRONMENTAL DE-ESCALATION</p><ul><li>Verbal De-escalation (Richmond Agitation-Sedation Scale +1 to +2)</li><li>Maintain distance, calm voice, offer choices, reduce stimulation</li></ul><p>↓</p></div>
+<div class="sequence-card"><p>LEVEL 2: ORAL VOLUNTARY PHARMACOLOGIC DE-ESCALATION</p><ul><li>Patient accepts oral medications</li><li>Second-generation antipsychotic (Olanzapine) + Benzodiazepine</li></ul><p>↓</p></div>
+<div class="sequence-card"><p>LEVEL 3: PARENTERAL / INVOLUNTARY EMERGENCY PHARMACOLOGIC SEDATION</p><ul><li>Severe Agitation / Violence Risk (RASS +3 to +4)</li><li>Intramuscular Sedation Protocols (Ketamine or Combination Agents)</li></ul></div>
+<iframe src="https://drive.google.com/file/d/1TNQJVbsUz52W9DrRl034gg8uhnEsC7wt/preview" loading="lazy" title="Staged Agitation Management Protocol" allowfullscreen></iframe></div>
+<h3>Agitation Management Framework</h3><div class="tabset"><div class="rise-tabs" role="tablist" aria-label="Clinical comparison"><button class="tab-btn active" role="tab" id="t3-0" aria-controls="p3-0" aria-selected="true" tabindex="0">Environmental &amp; Verbal De-escalation:</button><button class="tab-btn " role="tab" id="t3-1" aria-controls="p3-1" aria-selected="false" tabindex="-1">Voluntary Pharmacologic Intervention:</button><button class="tab-btn " role="tab" id="t3-2" aria-controls="p3-2" aria-selected="false" tabindex="-1">Involuntary Pharmacologic Sedation:</button></div>
+<div class="tab-panel panel" role="tabpanel" id="p3-0" aria-labelledby="t3-0" ><p>Attempt verbal de-escalation first whenever safe and feasible. Use non-confrontational language, maintain an unblocked exit, establish a safe physical distance (&gt;2 arm lengths), and minimize sensory overload.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p3-1" aria-labelledby="t3-1" hidden><p>Offer oral medications (e.g., Lorazepam 1–2 mg PO, Olanzapine 5– 10 mg ODT/PO) if the patient is cooperative.</p></div>
+<div class="tab-panel panel" role="tabpanel" id="p3-2" aria-labelledby="t3-2" hidden><p>Indicated when agitation poses an immediate threat to patient or staff safety, or impedes life-saving medical evaluation.</p></div>
+</div>
+<h3>Emergency Sedation Medications</h3><div class="table-wrap" tabindex="0" role="region" aria-label="Emergency Sedation Medications"><table><thead><tr><th scope="col">Agent</th><th scope="col">Dose / Route</th><th scope="col">Indications</th><th scope="col">Advantages &amp; Contraindications / Risks</th></tr></thead><tbody><tr><th scope="row">Ketamine</th><td>4–5 mg/kg IM (or 1–2 mg/kg IV)</td><td>Severe, violent, uncooperative agitation (&quot;Excited Delirium&quot;)</td><td>Rapid onset (2–5 min). Preserves respiratory drive. Risk of laryngospasm, hypersalivation, and emergence reactions.</td></tr><tr><th scope="row">Droperidol</th><td>2.5–5.0 mg IM / IV</td><td>Undifferentiated agitation, acute psychosis, intoxication</td><td>Rapid onset, lower incidence of extrapyramidal symptoms. Black box warning for QTc prolongation (monitor ECG).</td></tr><tr><th scope="row">Haloperidol</th><td>5.0–10 mg IM / IV</td><td>Acute psychotic agitation, delirium</td><td>Reliable sedating antipsychotic. Risk of extrapyramidal reactions (dystonia), lower seizure threshold, QTc prolongation.</td></tr><tr><th scope="row">Olanzapine</th><td>5.0–10 mg IM / PO</td><td>Acute agitation in known psychiatric disease</td><td>Low extrapyramidal risk. Do not combine IM Olanzapine with IM Benzodiazepines (severe hypotension and respiratory arrest risk).</td></tr><tr><th scope="row">Midazolam</th><td>2.5–5.0 mg IM / IV</td><td>Sympathomimetic toxicity, sedative withdrawal</td><td>Rapid onset, short duration. High risk of respiratory depression and hypoventilation.</td></tr><tr><th scope="row">B52 Combination</th><td>Haloperidol 5 mg IM + Diphenhydramine 50 mg IM + Lorazepam 2 mg IM</td><td>Traditional severe undifferentiated agitation protocol</td><td>Diphenhydramine prevents extrapyramidal dystonic reactions driven by Haloperidol.</td></tr></tbody></table></div>
+</section>
+<section class="rise-block alt" id="section-4"><h2>Section 5: Suicide Risk Stratification &amp; Capacity Assessment</h2><h3>Suicide Risk Stratification Framework</h3><p>All emergency department patients presenting with behavioral symptoms, mood disturbances, or self-harm must undergo structured suicide risk assessment.</p><div class="grid-3"><div class="panel"><h3>HIGH RISK</h3><ul><li>Active plan &amp; intent</li><li>Access to lethal means</li><li>Active psychosis or mania</li><li>Severe hopelessness</li></ul><p>Action: Involuntary placement, 1:1 observation, secure room</p></div>
+<div class="panel"><h3>MODERATE RISK</h3><ul><li>Ideation with plan, NO immediate intent</li><li>Risk factors present</li><li>Limited protective factors</li></ul><p>Action: Full psych evaluation, safety planning, line of sight</p></div>
+<div class="panel"><h3>LOW RISK</h3><ul><li>Passive ideation</li><li>No plan or intent</li><li>Strong protective factors</li><li>Cooperative with care</li></ul><p>Action: Outpatient referral, lethal means safety counseling</p></div>
+</div>
+<p>High-Risk Indicators: Expressed active intent, detailed high-lethal plan, readily available lethal means (e.g., firearm in home), active psychosis, severe substance intoxication/withdrawal, history of high-lethal attempts, and lack of protective factors. Requires continuous 1:1 visual observation, removal of all personal belongings/ligature points, and involuntary psychiatric evaluation/admission.</p><h3>Assessment of Decision-Making Capacity</h3><p>Decision-making capacity is a clinical determination made by the emergency physician for a specific decision at a specific time. It is distinct from competence, which is a global legal status declared by a court.</p><h3>4 Core Components of Decision-Making Capacity</h3><div class="grid-2"><div class="mini-card"><ul><li>Understanding: Ability to comprehend the nature of the condition, proposed treatment, and risks/benefits.</li></ul></div>
+<div class="mini-card"><ul><li>Appreciation: Ability to apply the information to one&#x27;s own personal situation and recognize the reality of the medical consequences.</li></ul></div>
+<div class="mini-card"><ul><li>Reasoning: Ability to process choices logically and weigh risks versus benefits in alignment with personal values.</li></ul></div>
+<div class="mini-card"><ul><li>Communication: Ability to clearly communicate a consistent, voluntary choice.</li></ul></div>
+</div>
+<p class="callout">CLINICAL WARNING: Intoxication, acute psychosis, severe hypoxia, or delirium automatically impairs decision-making capacity. If a patient lacking capacity attempts to refuse life-sustaining medical care, emergency physicians are legally required to provide care under the principle of implied consent or emergency protective custody.</p><div class="assessment panel"><h3>4 Core Components of Decision-Making Capacity</h3><p class="template-note">Match each description to the corresponding category. Complete every row, then check your matches.</p><div class="matching-row" data-answer="2" data-explanation="Reasoning:  Ability to process choices logically and weigh risks versus benefits in alignment with personal values."><div id="label-a3-0"><p>Ability to process choices logically and weigh risks versus benefits in alignment with personal values.</p></div>
+<select aria-labelledby="label-a3-0"><option value="">Choose…</option><option value="0">Understanding</option><option value="1">Appreciation</option><option value="2">Reasoning</option><option value="3">Communication</option></select><div class="row-feedback" role="status"></div>
+</div>
+<div class="matching-row" data-answer="0" data-explanation="Understanding:  Ability to comprehend the nature of the condition, proposed treatment, and risks/benefits."><div id="label-a3-1"><p>Ability to comprehend the nature of the condition, proposed treatment, and risks/benefits.</p></div>
+<select aria-labelledby="label-a3-1"><option value="">Choose…</option><option value="0">Understanding</option><option value="1">Appreciation</option><option value="2">Reasoning</option><option value="3">Communication</option></select><div class="row-feedback" role="status"></div>
+</div>
+<div class="matching-row" data-answer="3" data-explanation="Communication:  Ability to clearly communicate a consistent, voluntary choice."><div id="label-a3-2"><p>Ability to clearly communicate a consistent, voluntary choice.</p></div>
+<select aria-labelledby="label-a3-2"><option value="">Choose…</option><option value="0">Understanding</option><option value="1">Appreciation</option><option value="2">Reasoning</option><option value="3">Communication</option></select><div class="row-feedback" role="status"></div>
+</div>
+<div class="matching-row" data-answer="1" data-explanation="Appreciation:  Ability to apply the information to one&#x27;s own personal situation and recognize the reality of the medical consequences."><div id="label-a3-3"><p>Ability to apply the information to one&#x27;s own personal situation and recognize the reality of the medical consequences.</p></div>
+<select aria-labelledby="label-a3-3"><option value="">Choose…</option><option value="0">Understanding</option><option value="1">Appreciation</option><option value="2">Reasoning</option><option value="3">Communication</option></select><div class="row-feedback" role="status"></div>
+</div>
+<button class="cover-btn check" type="button">Check matches</button><button class="secondary retry" type="button">Reset activity</button><div class="feedback" role="status"></div>
+</div>
+</section>
+<section class="rise-block tint" id="section-5"><h2>Section 6: ED Behavioral Health Disposition Framework</h2><p>ED disposition decisions require simultaneous confirmation of both medical stability and psychiatric safety.</p><h3>ED Disposition Decision Tree</h3><div class="card-sequence"><div class="sequence-card"><p>PATIENT EVALUATED IN ED</p></div>
+<p class="flow-arrow">↓</p><div class="sequence-card"><p>MEDICAL SCREENING EXAM COMPLETE?</p><ul><li>NO → Medical Admission (HHS, DKA, Sepsis) • YES → Is Patient Medically Stable?</li></ul></div>
+<p class="flow-arrow">↓</p><div class="sequence-card"><p>IS PATIENT MEDICALLY STABLE?</p><ul><li>NO → Medical Admission</li><li>YES → Psychiatric Risk Assessment</li></ul></div>
+<p class="flow-arrow">↓</p><div class="sequence-card"><p>PSYCHIATRIC RISK ASSESSMENT</p><ul><li>HIGH → Inpatient Psychiatric Admission</li><li>LOW → Outpatient Discharge with Safety Plan</li></ul></div>
+</div>
+<details class="panel"><summary>Criteria for Inpatient Psychiatric Admission</summary><ul><li>Active suicidal or homicidal ideation with intent or plan.</li><li>Inability to care for basic self-needs (&quot;grave disability&quot;) due to psychiatric illness.</li><li>Severe, uncompensated psychosis or mania posing safety threats.</li><li>Intractable drug/alcohol withdrawal requiring inpatient medical detoxification.</li></ul></details><details class="panel"><summary>Criteria for Outpatient Behavioral Health Discharge</summary><ul><li>Medical screening examination complete and within normal limits.</li><li>Absence of active suicidal intent, plan, or homicidal ideation.</li><li>Reliable baseline mental status with demonstrated decision-making capacity.</li><li>Presence of a structured safety plan, safe home environment, lethal means restricted (firearms/medications locked), and secured outpatient follow-up within 24–48 hours.</li></ul></details></section>
+<div class="rise-block summary-grid"><div class="mini-card">Checked activities <strong id="attemptedScore">0 / 3</strong></div>
+<div class="mini-card">Correct activities <strong id="correctScore">0 / 3</strong></div>
+</div>
+</div></main></div><script>
+document.querySelectorAll('.tabset').forEach(set=>{const tabs=[...set.querySelectorAll('[role=tab]')];function activate(t){tabs.forEach(x=>{const on=x===t;x.classList.toggle('active',on);x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});}tabs.forEach((t,i)=>{t.onclick=()=>activate(t);t.onkeydown=e=>{let n;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==undefined){e.preventDefault();activate(tabs[n]);tabs[n].focus();}};});});
+const activities=[...document.querySelectorAll('.assessment')];function summary(){document.getElementById('attemptedScore').textContent=activities.filter(a=>a.dataset.checked==='yes').length+' / '+activities.length;document.getElementById('correctScore').textContent=activities.filter(a=>a.dataset.correct==='yes').length+' / '+activities.length;}
+activities.forEach(a=>{const rows=[...a.querySelectorAll('.matching-row')],feedback=a.querySelector('.feedback');function clear(){delete a.dataset.checked;delete a.dataset.correct;feedback.textContent='';rows.forEach(r=>{r.querySelector('.row-feedback').textContent='';r.querySelector('select').removeAttribute('aria-invalid');});summary();}a.querySelector('.check').onclick=()=>{if(rows.some(r=>!r.querySelector('select').value)){feedback.textContent='Complete every match before checking.';rows.find(r=>!r.querySelector('select').value).querySelector('select').focus();return;}let count=0;rows.forEach(r=>{const s=r.querySelector('select'),ok=s.value===r.dataset.answer;count+=ok;const f=r.querySelector('.row-feedback');f.className='row-feedback '+(ok?'good':'bad');f.textContent=(ok?'Correct. ':'Review this match and try again. ')+r.dataset.explanation;s.setAttribute('aria-invalid',!ok);});a.dataset.checked='yes';a.dataset.correct=count===rows.length?'yes':'no';feedback.textContent=count+' / '+rows.length+' correct.';summary();};a.querySelector('.retry').onclick=()=>{rows.forEach(r=>r.querySelector('select').value='');clear();};a.querySelectorAll('select').forEach(s=>s.onchange=clear);});
+</script></body></html>
